@@ -1,5 +1,7 @@
 crewai
 crewai-tools
+fastapi
+uvicorn
 python-dotenv
 pydantic
 requests
