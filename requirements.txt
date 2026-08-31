@@ -1,6 +1,7 @@
 crewai
+crewai-tools
 fastapi
 uvicorn
 python-dotenv
-pytest
-httpx
+pydantic
+requests
