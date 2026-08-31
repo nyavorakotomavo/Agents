@@ -1,73 +1,97 @@
-# Autonomous Agents with CrewAI & GitHub Actions
+# 🤖 Autonomous Agents
 
-Ce projet est un template/base pour exécuter des agents autonomes avec **CrewAI**, exposés via une API REST avec **FastAPI**, et automatisés via **GitHub Actions**.
+An autonomous multi-agent laboratory designed to investigate objectives,
+discover opportunities, generate hypotheses, challenge ideas and select
+the most promising solutions.
 
-## 🚀 Fonctionnalités
+## 🧠 Current architecture
 
-- **CrewAI** : Structure multi-agents (Research Analyst + Content Strategist).
-- **FastAPI** : Endpoint REST `/run-crew` pour déclencher les agents sur un sujet donné.
-- **GitHub Actions** :
-  - Intégration Continue (CI) : exécution automatique des tests unitaires (`pytest`) lors des pushs / PRs.
-  - Exécution programmée ou manuelle (`workflow_dispatch`) des agents autonomes via GitHub Actions avec export de secrets (`OPENAI_API_KEY`).
+The system currently contains five cognitive roles:
 
----
+- 🔭 Global Researcher
+- 💡 Radical Inventor
+- 🔬 Scientific Thinker
+- ⚔️ Adversarial Critic
+- 🏆 Innovation Judge
 
-## 🛠️ Configuration & Installation Locale
+The agents work sequentially:
 
-1. **Cloner le dépôt** et installer les dépendances :
+Research → Invention → Scientific Analysis → Criticism → Evaluation
 
-```bash
-pip install -r requirements.txt
-```
+## 🎯 Current objective
 
-2. **Variables d'environnement** :
-Créez un fichier `.env` ou définissez la clé API OpenAI dans votre terminal :
+The first mission is to discover potentially revolutionary website or
+application ideas with:
 
-```bash
-export OPENAI_API_KEY="votre-cle-openai"
-```
+- a real and important problem;
+- a large potential audience;
+- global potential;
+- strong differentiation;
+- realistic MVP feasibility;
+- monetization potential;
+- long-term growth potential.
 
-3. **Lancer le serveur API FastAPI** :
+## 🚀 Execution
 
-```bash
-uvicorn main:app --reload
-```
+The project can be executed through:
 
-L'API sera disponible sur `http://127.0.0.1:8000`. Vous pouvez tester les endpoints suivants :
-- `GET /` : Vérifier que l'API fonctionne.
-- `GET /health` : Monitoring health check.
-- `POST /run-crew` : Déclencher les agents autonomes.
-  ```json
-  {
-    "topic": "AI Automation in Software Engineering"
-  }
-  ```
+1. GitHub Actions
+2. The FastAPI interface
 
-4. **Exécuter directement la Crew en CLI** :
+GitHub Actions can receive an objective and execute the discovery crew
+automatically.
 
-```bash
-python crew.py
-```
+## 🔐 Secrets
 
----
+API keys must NEVER be committed to this repository.
 
-## 🧪 Tests Unitaires
+Expected GitHub Actions secrets:
 
-Pour lancer l'ensemble des tests de l'application :
+- `OPENAI_API_KEY`
+- `GEMINI_API_KEY`
 
-```bash
-pytest
-```
+Optional repository variable:
 
----
+- `MODEL`
 
-## 🤖 Automatisations GitHub Actions
+## 🛠️ Roadmap
 
-Le workflow `.github/workflows/ci.yml` gère deux rôles :
+### Phase 1 — Foundation
+- [x] CrewAI
+- [x] Multi-agent architecture
+- [x] FastAPI interface
+- [x] GitHub Actions workflow
+- [x] Result artifacts
 
-1. **Test Job** : Se déclenche automatiquement lors des `push` et `pull_request` sur les branches `main` / `master`.
-2. **Run Agent Job** :
-   - **Manuel** : Déclenchable depuis l'onglet *Actions* de GitHub (*Run workflow*) en renseignant un sujet (`topic`).
-   - **Planifié (CRON)** : Exécution automatique quotidienne (par défaut à minuit).
+### Phase 2 — Intelligence
+- [ ] Real web research
+- [ ] Source extraction
+- [ ] Persistent memory
+- [ ] Better evaluation
+- [ ] Iterative reasoning
 
-> **Note :** Pensez à ajouter votre clé `OPENAI_API_KEY` dans les secrets de votre dépôt GitHub (`Settings > Secrets and variables > Actions`).
+### Phase 3 — Autonomy
+- [ ] Dynamic task planning
+- [ ] Autonomous loops
+- [ ] Automatic objective decomposition
+- [ ] Automatic tool selection
+- [ ] Scheduled missions
+
+### Phase 4 — Discovery Laboratory
+- [ ] Long-term memory
+- [ ] Idea evolution
+- [ ] Experimentation
+- [ ] Hypothesis testing
+- [ ] Opportunity monitoring
+- [ ] Automatic reports
+
+## ⚠️ Philosophy
+
+The system should not simply generate plausible text.
+
+Its long-term goal is to:
+
+**observe → investigate → hypothesize → challenge → test → learn → improve**
+
+Originality is not assumed. Ideas must be investigated and challenged
+before being considered valuable.
