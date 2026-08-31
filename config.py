@@ -79,7 +79,7 @@ MODELS = {
         provider="gemini",
         model=os.getenv(
             "GEMINI_MODEL",
-            "gemini-3-flash"
+            "gemini-3.6-flash"
         ),
         api_key=secret("GEM"),
     ),
