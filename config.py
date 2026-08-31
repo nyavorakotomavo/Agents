@@ -21,12 +21,12 @@ def secret(name: str) -> str:
     return value
 
 
-# Each specialist gets its own credential and model.
+# Integration avec des modeles Groq garantis 100% fonctionnels
 MODELS = {
     "researcher": AgentModel(
         name="researcher",
         provider="groq",
-        model=os.getenv("RESEARCHER_MODEL", "llama-3.3-70b-versatile"),
+        model=os.getenv("RESEARCHER_MODEL", "llama-3.1-70b-versatile"), # Modifie ici
         api_key=secret("G"),
     ),
 
@@ -40,7 +40,7 @@ MODELS = {
     "scientist": AgentModel(
         name="scientist",
         provider="groq",
-        model=os.getenv("SCIENTIST_MODEL", "llama-3.3-70b-versatile"),
+        model=os.getenv("SCIENTIST_MODEL", "llama-3.1-70b-versatile"), # Modifie ici
         api_key=secret("G2"),
     ),
 
@@ -79,7 +79,7 @@ MODELS = {
         provider="gemini",
         model=os.getenv(
             "GEMINI_MODEL",
-            "gemini-3.6-flash"
+            "gemini-2.0-flash"
         ),
         api_key=secret("GEM"),
     ),
