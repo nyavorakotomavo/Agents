@@ -7,6 +7,7 @@ on:
         description: "Objectif des agents"
         required: true
         default: "Trouver une idée révolutionnaire de site ou application"
+
   schedule:
     - cron: "0 18 * * *"
 
@@ -14,6 +15,19 @@ jobs:
   run-agents:
     runs-on: ubuntu-latest
     timeout-minutes: 350
+
+    env:
+      G: ${{ secrets.G }}
+      G1: ${{ secrets.G1 }}
+      G2: ${{ secrets.G2 }}
+
+      OP: ${{ secrets.OP }}
+      OP2: ${{ secrets.OP2 }}
+      OP3: ${{ secrets.OP3 }}
+
+      GEM: ${{ secrets.GEM }}
+
+      OBJECTIVE: ${{ inputs.objective }}
 
     steps:
       - name: Checkout repository
@@ -26,14 +40,11 @@ jobs:
           cache: "pip"
 
       - name: Install dependencies
-        run: pip install -r requirements.txt
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
 
       - name: Run Autonomous Agents
-        env:
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-          MODEL: ${{ vars.MODEL }}
-          OBJECTIVE: ${{ inputs.objective }}
         run: python main.py
 
       - name: Save results
