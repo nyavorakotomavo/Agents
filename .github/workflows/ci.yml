@@ -35,7 +35,7 @@ jobs:
 
       - name: Run Pytest
         run: |
-          pytest
+          python -m pytest
 
   run-agent:
     name: Run CrewAI Autonomous Agent
