@@ -1,3 +1,4 @@
+
 import os
 from dataclasses import dataclass
 
@@ -11,6 +12,10 @@ class AgentModel:
 
 
 def secret(name: str) -> str:
+    """
+    Récupère UNIQUEMENT une clé API depuis les variables
+    d'environnement / GitHub Secrets.
+    """
     value = os.getenv(name, "").strip()
 
     if not value:
@@ -22,15 +27,13 @@ def secret(name: str) -> str:
 
 
 # ============================================================
-# MODELES DES 7 AGENTS
-# ============================================================
+# 7 AGENTS / 7 CLÉS
 #
 # IMPORTANT :
-# Les modèles Groq utilisés ici sont des modèles actuellement
-# disponibles dans l'API Groq.
-#
-# On évite volontairement llama-3.1-70b-versatile et
-# llama-3.3-70b-versatile.
+# - Les modèles sont définis ICI.
+# - Les Secrets GitHub contiennent UNIQUEMENT les clés.
+# - Aucun RESEARCHER_MODEL, INVENTOR_MODEL, etc.
+#   n'est utilisé.
 # ============================================================
 
 MODELS = {
@@ -41,62 +44,47 @@ MODELS = {
     "researcher": AgentModel(
         name="researcher",
         provider="groq",
-        model=os.getenv(
-            "RESEARCHER_MODEL",
-            "openai/gpt-oss-120b"
-        ),
+        model="openai/gpt-oss-120b",
         api_key=secret("G"),
     ),
 
     # --------------------------------------------------------
-    # 2. INVENTOR
+    # 2. RADICAL INVENTOR
     # --------------------------------------------------------
     "inventor": AgentModel(
         name="inventor",
         provider="groq",
-        model=os.getenv(
-            "INVENTOR_MODEL",
-            "openai/gpt-oss-20b"
-        ),
+        model="openai/gpt-oss-20b",
         api_key=secret("G1"),
     ),
 
     # --------------------------------------------------------
-    # 3. SCIENTIST
+    # 3. SCIENTIFIC THINKER
     # --------------------------------------------------------
     "scientist": AgentModel(
         name="scientist",
         provider="groq",
-        model=os.getenv(
-            "SCIENTIST_MODEL",
-            "llama-3.1-8b-instant"
-        ),
+        model="openai/gpt-oss-120b",
         api_key=secret("G2"),
     ),
 
     # --------------------------------------------------------
-    # 4. CRITIC
+    # 4. ADVERSARIAL CRITIC
     # --------------------------------------------------------
     "critic": AgentModel(
         name="critic",
         provider="openrouter",
-        model=os.getenv(
-            "CRITIC_MODEL",
-            "google/gemini-2.5-flash"
-        ),
+        model="google/gemini-2.5-flash",
         api_key=secret("OP"),
     ),
 
     # --------------------------------------------------------
-    # 5. JUDGE
+    # 5. INNOVATION JUDGE
     # --------------------------------------------------------
     "judge": AgentModel(
         name="judge",
         provider="openrouter",
-        model=os.getenv(
-            "JUDGE_MODEL",
-            "deepseek/deepseek-chat"
-        ),
+        model="deepseek/deepseek-chat",
         api_key=secret("OP2"),
     ),
 
@@ -106,10 +94,7 @@ MODELS = {
     "strategist": AgentModel(
         name="strategist",
         provider="openrouter",
-        model=os.getenv(
-            "STRATEGIST_MODEL",
-            "qwen/qwen3-30b-a3b"
-        ),
+        model="openai/gpt-oss-120b",
         api_key=secret("OP3"),
     ),
 
@@ -119,19 +104,21 @@ MODELS = {
     "gemini": AgentModel(
         name="gemini",
         provider="gemini",
-        model=os.getenv(
-            "GEMINI_MODEL",
-            "gemini-2.0-flash"
-        ),
+        model="gemini-3.7-flash",
         api_key=secret("GEM"),
     ),
 }
 
 
 def get_model(agent_name: str) -> AgentModel:
+    """
+    Retourne la configuration du modèle demandé.
+    """
     try:
         return MODELS[agent_name]
     except KeyError:
+        available = ", ".join(MODELS.keys())
         raise ValueError(
-            f"Unknown agent model: {agent_name}"
+            f"Unknown agent model: {agent_name}. "
+            f"Available models: {available}"
         )
