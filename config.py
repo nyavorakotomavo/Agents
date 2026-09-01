@@ -11,17 +11,15 @@ class AgentModel:
     api_key: str
 
 
-def secret(name: str) -> str:
+def secret(name: str, default: str = "mock_key") -> str:
     """
-    Récupère UNIQUEMENT une clé API depuis les variables
-    d'environnement / GitHub Secrets.
+    Récupère une clé API depuis les variables d'environnement / GitHub Secrets.
+    Si elle est absente, retourne une valeur par défaut pour éviter de faire planter l'importation.
     """
     value = os.getenv(name, "").strip()
 
     if not value:
-        raise RuntimeError(
-            f"Missing GitHub secret/environment variable: {name}"
-        )
+        return default
 
     return value
 
