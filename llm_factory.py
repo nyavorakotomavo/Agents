@@ -4,16 +4,24 @@ from config import AgentModel
 
 
 def create_llm(agent_model: AgentModel) -> LLM:
-    provider = agent_model.provider.lower()
+    """
+    Transforme notre AgentModel en LLM CrewAI.
+
+    Les clés API viennent exclusivement de config.py,
+    donc des GitHub Secrets.
+    """
+
+    provider = agent_model.provider.lower().strip()
+    model = agent_model.model.strip()
 
     if provider == "groq":
-        model = f"groq/{agent_model.model}"
+        llm_model = f"groq/{model}"
 
     elif provider == "openrouter":
-        model = f"openrouter/{agent_model.model}"
+        llm_model = f"openrouter/{model}"
 
     elif provider == "gemini":
-        model = f"gemini/{agent_model.model}"
+        llm_model = f"gemini/{model}"
 
     else:
         raise ValueError(
@@ -21,6 +29,6 @@ def create_llm(agent_model: AgentModel) -> LLM:
         )
 
     return LLM(
-        model=model,
+        model=llm_model,
         api_key=agent_model.api_key,
     )
