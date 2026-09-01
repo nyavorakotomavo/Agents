@@ -1,3 +1,13 @@
+from config import MODELS
+
+print("=== MODEL CONFIGURATION ===")
+
+for name, cfg in MODELS.items():
+    print(
+        f"{name}: provider={cfg.provider}, model={cfg.model}"
+    )
+
+print("===========================")
 import os
 from pathlib import Path
 
