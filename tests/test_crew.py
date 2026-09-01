@@ -5,10 +5,13 @@ def test_create_autonomous_crew():
     topic = "Software Engineering Automation"
     crew = create_autonomous_crew(topic=topic)
 
-    assert len(crew.agents) == 2
-    assert len(crew.tasks) == 2
-    assert crew.agents[0].role == "Research Analyst"
-    assert crew.agents[1].role == "Content Strategist"
+    assert len(crew.agents) == 5
+    assert len(crew.tasks) == 5
+    assert crew.agents[0].role == "Global Researcher"
+    assert crew.agents[1].role == "Radical Inventor"
+    assert crew.agents[2].role == "Scientific Thinker"
+    assert crew.agents[3].role == "Adversarial Critic"
+    assert crew.agents[4].role == "Innovation Judge"
 
 @patch("crew.Crew.kickoff")
 def test_run_crew(mock_kickoff):
