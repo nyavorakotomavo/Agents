@@ -21,35 +21,51 @@ def secret(name: str) -> str:
     return value
 
 
-# Integration avec des modeles Groq garantis 100% fonctionnels
 MODELS = {
+    # ─────────────────────────────────────────────
+    # GROQ
+    # ─────────────────────────────────────────────
+
     "researcher": AgentModel(
         name="researcher",
         provider="groq",
-        model=os.getenv("RESEARCHER_MODEL", "llama-3.1-70b-versatile"), # Modifie ici
+        model=os.getenv(
+            "RESEARCHER_MODEL",
+            "llama-3.3-70b-versatile"
+        ),
         api_key=secret("G"),
     ),
 
     "inventor": AgentModel(
         name="inventor",
         provider="groq",
-        model=os.getenv("INVENTOR_MODEL", "llama-3.1-8b-instant"),
+        model=os.getenv(
+            "INVENTOR_MODEL",
+            "llama-3.1-8b-instant"
+        ),
         api_key=secret("G1"),
     ),
 
     "scientist": AgentModel(
         name="scientist",
         provider="groq",
-        model=os.getenv("SCIENTIST_MODEL", "llama-3.1-70b-versatile"), # Modifie ici
+        model=os.getenv(
+            "SCIENTIST_MODEL",
+            "openai/gpt-oss-120b"
+        ),
         api_key=secret("G2"),
     ),
+
+    # ─────────────────────────────────────────────
+    # OPENROUTER
+    # ─────────────────────────────────────────────
 
     "critic": AgentModel(
         name="critic",
         provider="openrouter",
         model=os.getenv(
             "CRITIC_MODEL",
-            "google/gemini-2.5-flash"
+            "google/gemini-3.5-flash"
         ),
         api_key=secret("OP"),
     ),
@@ -69,17 +85,21 @@ MODELS = {
         provider="openrouter",
         model=os.getenv(
             "STRATEGIST_MODEL",
-            "qwen/qwen3-30b-a3b"
+            "google/gemini-3.5-flash"
         ),
         api_key=secret("OP3"),
     ),
+
+    # ─────────────────────────────────────────────
+    # GOOGLE GEMINI DIRECT
+    # ─────────────────────────────────────────────
 
     "gemini": AgentModel(
         name="gemini",
         provider="gemini",
         model=os.getenv(
             "GEMINI_MODEL",
-            "gemini-2.0-flash"
+            "gemini-3.6-flash"
         ),
         api_key=secret("GEM"),
     ),
@@ -90,4 +110,6 @@ def get_model(agent_name: str) -> AgentModel:
     try:
         return MODELS[agent_name]
     except KeyError:
-        raise ValueError(f"Unknown agent model: {agent_name}")
+        raise ValueError(
+            f"Unknown agent model: {agent_name}"
+        )
