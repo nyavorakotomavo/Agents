@@ -21,55 +21,75 @@ def secret(name: str) -> str:
     return value
 
 
-MODELS = {
-    # ─────────────────────────────────────────────
-    # GROQ
-    # ─────────────────────────────────────────────
+# ============================================================
+# MODELES DES 7 AGENTS
+# ============================================================
+#
+# IMPORTANT :
+# Les modèles Groq utilisés ici sont des modèles actuellement
+# disponibles dans l'API Groq.
+#
+# On évite volontairement llama-3.1-70b-versatile et
+# llama-3.3-70b-versatile.
+# ============================================================
 
+MODELS = {
+
+    # --------------------------------------------------------
+    # 1. GLOBAL RESEARCHER
+    # --------------------------------------------------------
     "researcher": AgentModel(
         name="researcher",
         provider="groq",
         model=os.getenv(
             "RESEARCHER_MODEL",
-            "llama-3.3-70b-versatile"
+            "openai/gpt-oss-120b"
         ),
         api_key=secret("G"),
     ),
 
+    # --------------------------------------------------------
+    # 2. INVENTOR
+    # --------------------------------------------------------
     "inventor": AgentModel(
         name="inventor",
         provider="groq",
         model=os.getenv(
             "INVENTOR_MODEL",
-            "llama-3.1-8b-instant"
+            "openai/gpt-oss-20b"
         ),
         api_key=secret("G1"),
     ),
 
+    # --------------------------------------------------------
+    # 3. SCIENTIST
+    # --------------------------------------------------------
     "scientist": AgentModel(
         name="scientist",
         provider="groq",
         model=os.getenv(
             "SCIENTIST_MODEL",
-            "openai/gpt-oss-120b"
+            "llama-3.1-8b-instant"
         ),
         api_key=secret("G2"),
     ),
 
-    # ─────────────────────────────────────────────
-    # OPENROUTER
-    # ─────────────────────────────────────────────
-
+    # --------------------------------------------------------
+    # 4. CRITIC
+    # --------------------------------------------------------
     "critic": AgentModel(
         name="critic",
         provider="openrouter",
         model=os.getenv(
             "CRITIC_MODEL",
-            "google/gemini-3.5-flash"
+            "google/gemini-2.5-flash"
         ),
         api_key=secret("OP"),
     ),
 
+    # --------------------------------------------------------
+    # 5. JUDGE
+    # --------------------------------------------------------
     "judge": AgentModel(
         name="judge",
         provider="openrouter",
@@ -80,26 +100,28 @@ MODELS = {
         api_key=secret("OP2"),
     ),
 
+    # --------------------------------------------------------
+    # 6. STRATEGIST
+    # --------------------------------------------------------
     "strategist": AgentModel(
         name="strategist",
         provider="openrouter",
         model=os.getenv(
             "STRATEGIST_MODEL",
-            "google/gemini-3.5-flash"
+            "qwen/qwen3-30b-a3b"
         ),
         api_key=secret("OP3"),
     ),
 
-    # ─────────────────────────────────────────────
-    # GOOGLE GEMINI DIRECT
-    # ─────────────────────────────────────────────
-
+    # --------------------------------------------------------
+    # 7. GEMINI
+    # --------------------------------------------------------
     "gemini": AgentModel(
         name="gemini",
         provider="gemini",
         model=os.getenv(
             "GEMINI_MODEL",
-            "gemini-3.6-flash"
+            "gemini-2.0-flash"
         ),
         api_key=secret("GEM"),
     ),
