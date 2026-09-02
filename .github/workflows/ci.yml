@@ -12,7 +12,7 @@ on:
         required: false
         default: 'AI Automation'
   schedule:
-    - cron: '0 0 * * *'  # Daily execution example for autonomous agent task
+    - cron: '0 0 * * *'
 
 jobs:
   test:
@@ -57,6 +57,12 @@ jobs:
 
       - name: Run CrewAI Crew Execution
         env:
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          G: ${{ secrets.G }}
+          G1: ${{ secrets.G1 }}
+          G2: ${{ secrets.G2 }}
+          OP: ${{ secrets.GEM }}
+          OP2: ${{ secrets.OP2 }}
+          OP3: ${{ secrets.OP3 }}
+          GEM: ${{ secrets.GEM }}
         run: |
           python -c "from crew import run_crew; print(run_crew('${{ github.event.inputs.topic || 'AI Automation' }}'))"
