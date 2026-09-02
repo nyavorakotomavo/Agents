@@ -67,7 +67,7 @@ MODELS = {
     "critic": AgentModel(
         name="critic",
         provider="gemini",
-        model="gemini-2.5-flash",
+        model="gemini-3.6-flash",
         api_key=secret("GEM"),
     ),
 
@@ -97,7 +97,7 @@ MODELS = {
     "gemini": AgentModel(
         name="gemini",
         provider="gemini",
-        model="gemini-2.5-flash",
+        model="gemini-3.6-flash",
         api_key=secret("GEM"),
     ),
 }
