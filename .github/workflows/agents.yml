@@ -21,7 +21,8 @@ jobs:
       G1: ${{ secrets.G1 }}
       G2: ${{ secrets.G2 }}
 
-      OP: ${{ secrets.OP }}
+      # OP est désormais aligné sur GEM pour éviter l'erreur de masque/clé manquante
+      OP: ${{ secrets.GEM }}
       OP2: ${{ secrets.OP2 }}
       OP3: ${{ secrets.OP3 }}
 
