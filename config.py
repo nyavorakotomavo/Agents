@@ -1,4 +1,3 @@
-
 import os
 from dataclasses import dataclass
 
@@ -18,22 +17,16 @@ def secret(name: str) -> str:
     """
     value = os.getenv(name, "").strip()
 
-    if not value:
+    if not value or value == "***":
         raise RuntimeError(
-            f"Missing GitHub secret/environment variable: {name}"
+            f"Missing or invalid GitHub secret/environment variable: {name}"
         )
 
     return value
 
 
 # ============================================================
-# 7 AGENTS / 7 CLÉS
-#
-# IMPORTANT :
-# - Les modèles sont définis ICI.
-# - Les Secrets GitHub contiennent UNIQUEMENT les clés.
-# - Aucun RESEARCHER_MODEL, INVENTOR_MODEL, etc.
-#   n'est utilisé.
+# 7 AGENTS / CONFIGURATION DES MODÈLES
 # ============================================================
 
 MODELS = {
@@ -69,13 +62,13 @@ MODELS = {
     ),
 
     # --------------------------------------------------------
-    # 4. ADVERSARIAL CRITIC
+    # 4. ADVERSARIAL CRITIC (Double rôle : Clé GEM)
     # --------------------------------------------------------
     "critic": AgentModel(
         name="critic",
-        provider="openrouter",
-        model="google/gemini-2.5-flash",
-        api_key=secret("OP"),
+        provider="gemini",
+        model="gemini-1.5-flash",
+        api_key=secret("GEM"),
     ),
 
     # --------------------------------------------------------
@@ -104,7 +97,7 @@ MODELS = {
     "gemini": AgentModel(
         name="gemini",
         provider="gemini",
-        model="gemini-3.7-flash",
+        model="gemini-1.5-flash",
         api_key=secret("GEM"),
     ),
 }
